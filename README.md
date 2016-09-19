@@ -21,6 +21,7 @@ scalatest-embedded-kafka is available on Bintray and Maven Central, compiled for
 * Have your `Spec` extend the `EmbeddedKafka` trait.
 * Enclose the code that needs a running instance of Kafka within the `withRunningKafka` closure.
 
+        ```
         class MySpec extends WordSpec with EmbeddedKafka {
     
         "runs with embedded kafka" should {
@@ -30,6 +31,7 @@ scalatest-embedded-kafka is available on Bintray and Maven Central, compiled for
             }
         
         }
+        ```
 
 * In-memory Zookeeper and Kafka will be instantiated respectively on port 6000 and 6001 and automatically shutdown at the end of the test.
 
