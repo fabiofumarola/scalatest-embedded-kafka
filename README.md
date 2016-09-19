@@ -20,7 +20,7 @@ scalatest-embedded-kafka is available on Bintray and Maven Central, compiled for
 * In your `build.sbt` file add the following dependency: `"net.manub" %% "scalatest-embedded-kafka" % "0.7.1" % "test"`
 * Have your `Spec` extend the `EmbeddedKafka` trait.
 * Enclose the code that needs a running instance of Kafka within the `withRunningKafka` closure.
-
+        ```scala
         class MySpec extends WordSpec with EmbeddedKafka {
     
         "runs with embedded kafka" should {
@@ -30,13 +30,14 @@ scalatest-embedded-kafka is available on Bintray and Maven Central, compiled for
             }
         
         }
+        ```
 
 * In-memory Zookeeper and Kafka will be instantiated respectively on port 6000 and 6001 and automatically shutdown at the end of the test.
 
 ### Use without the `withRunningKafka` method
 
 A `EmbeddedKafka` companion object is provided for usage without the `EmbeddedKafka` trait. Zookeeper and Kafka can be started an stopped in a programmatic way.
-
+        ```scala
         class MySpec extends WordSpec {
     
         "runs with embedded kafka" should {
@@ -48,13 +49,14 @@ A `EmbeddedKafka` companion object is provided for usage without the `EmbeddedKa
             EmbeddedKafka.stop() 
         
         }
+        ```
         
 Please note that in order to avoid Kafka instances not shutting down properly, it's recommended to call `EmbeddedKafka.stop()` in a `after` block or in a similar teardown logic. 
 
 ## Configuration
 
 It's possible to change the ports on which Zookeeper and Kafka are started by providing an implicit `EmbeddedKafkaConfig`
-
+        ```scala
         class MySpec extends WordSpec with EmbeddedKafka {
     
         "runs with embedded kafka on a specific port" should {
@@ -66,6 +68,7 @@ It's possible to change the ports on which Zookeeper and Kafka are started by pr
             }
         
         }
+        ```
         
 This works for both `withRunningKafka` and `EmbeddedKafka.start()`
 
@@ -78,13 +81,13 @@ are.
 ## Utility methods
 
 The `EmbeddedKafka` trait provides also some utility methods to interact with the embedded kafka, in order to set preconditions or verifications in your specs:
-
+        ```scala
         def publishToKafka(topic: String, message: String): Unit
         
         def consumeFirstMessageFrom(topic: String): String
 
         def createCustomTopic(topic: String, topicConfig: Map[String,String], partitions: Int, replicationFactor: Int): Unit
-        
+        ```
 ## Custom producers
 
 It is possible to create producers for custom types in two ways:
